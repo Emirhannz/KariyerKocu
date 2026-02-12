@@ -1,0 +1,53 @@
+# Web Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# Authentication
+pyjwt==2.8.0
+bcrypt==4.0.1
+passlib==1.7.4
+python-multipart==0.0.9
+
+# HTTP Client (io Intelligence API için)
+httpx==0.26.0
+
+# Validation & Settings
+pydantic==2.6.0
+pydantic-settings==2.1.0
+python-dotenv==1.0.1
+email-validator==2.1.0
+
+# PDF & Image Processing (Vision model yoksa kullanılır)
+PyPDF2==3.0.1
+Pillow==10.2.0
+# PyMuPDF - Daha iyi PDF okuma (ATS simülasyonu için)
+PyMuPDF==1.24.0
+# pdfminer - Alternatif PDF okuyucu (karşılaştırma için)
+pdfminer.six==20231228
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+httpx==0.26.0
+
+# Development
+black==24.1.1
+isort==5.13.2
+
+# Speech-to-Text (Groq Whisper)
+groq>=1.0.0
+
+# Text-to-Speech (Edge-TTS)
+edge-tts>=7.0.0
+
+# Speech Recognition (fallback)
+SpeechRecognition>=3.10.0
+
+# Job Search
+python-jobspy>=1.0.0
+selenium>=4.0.0

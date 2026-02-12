@@ -1,0 +1,106 @@
+
+# ==== SENSITIVE DATA ====
+data_dump.sql
+
+# ==== API KEYS  ====
+.env
+.env.local
+.env.production
+apikey.txt
+kullanici.txt
+*.pem
+*.key
+*.crt
+secrets/
+
+# ==== GEÇICI/DEBUG DOSYALARI ====
+bugfix_polish_plan.md
+bugfix_polish_plan.md.metadata.json
+bugfix_polish_plan.md.resolved
+DETAYLI_GELISTIRME_PLANI.txt
+*.resolved
+
+# ==== TEST DOSYALARI ====
+tests/
+backend/tests/
+test_*.py
+*_test.py
+test_*.txt
+*_test.txt
+*_response.*
+*_result*.txt
+*_debug.*
+selenium_result.txt
+linkedin_test.txt
+jooble_*.txt
+jooble_*.json
+yandex_*.txt
+yandex_*.html
+yandex_*.js
+speech_test.html
+
+# ==== MEDYA DOSYALARI ====
+*.wav
+*.mp3
+*.mp4
+*.avi
+
+# ==== DATABASE ====
+*.db
+*.sqlite
+*.sqlite3
+kariyer_kocu.db
+
+# ==== PYTHON ====
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ==== NODE.JS ====
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.nyc_output/
+
+# ==== IDE ====
+.vscode/
+.idea/
+.agent/
+.gemini/
+*.swp
+*.swo
+*.bak
+*.backup
+*~
+
+# ==== OS ====
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+logs/
+*.tmp
+*.temp
+.cache/
+
+# ==== UPLOADS ====
+backend/uploads/
+backend/app/uploads/
+uploads/
+
+# ==== NOTLAR  ====
+kariyer_rehberi.txt
+proje_yol_plani.txt
+hackathon_rehber.txt
+yapılanlar.txt
+cv_analysis_system_design.md
+api.txt

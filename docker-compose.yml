@@ -1,0 +1,108 @@
+# ==============================================================================
+# Docker Compose - KariyerKoçu Full Stack
+# ==============================================================================
+#
+# Bu dosya tüm servisleri tek komutla ayağa kaldırır:
+#   docker-compose up -d
+#
+# ÖĞRENME NOKTASI:
+# - Multi-container orchestration
+# - Service dependencies
+# - Health checks
+# - Volume management
+# ==============================================================================
+
+services:
+  # ============================================================================
+  # PostgreSQL Database
+  # ============================================================================
+  db:
+    image: postgres:15-alpine
+    container_name: caco_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-karriyer_kocu}
+    volumes:
+      # Named volume: Veri container silinse bile kalır
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    healthcheck:
+      # Veritabanı hazır mı kontrol et
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-karriyer_kocu}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - caco_network
+
+  # ============================================================================
+  # FastAPI Backend
+  # ============================================================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: caco_backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-karriyer_kocu}
+      - DEBUG=True
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "8000:8000"
+    volumes:
+      # Development için: Kod değişince container'a yansır
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy # DB hazır olana kadar bekle
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - caco_network
+
+  # ============================================================================
+  # React Frontend (Development)
+  # ============================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: caco_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # node_modules'ı override etme
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    networks:
+      - caco_network
+
+# ==============================================================================
+# Volumes
+# ==============================================================================
+volumes:
+  postgres_data:
+    name: caco_postgres_data
+
+# ==============================================================================
+# Networks
+# ==============================================================================
+networks:
+  caco_network:
+    name: caco_network
+    driver: bridge

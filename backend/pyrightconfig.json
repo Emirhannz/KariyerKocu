@@ -1,0 +1,15 @@
+{
+  "include": ["app", "tests"],
+  "exclude": ["**/__pycache__", "**/node_modules"],
+  "ignore": ["tests/**"],
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false,
+  "reportGeneralTypeIssues": false,
+  "reportOptionalMemberAccess": false,
+  "reportUnusedImport": false,
+  "pythonVersion": "3.11",
+  "pythonPlatform": "Linux",
+  "typeCheckingMode": "off",
+  "venvPath": ".",
+  "stubPath": ""
+}
